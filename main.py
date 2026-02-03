@@ -12,9 +12,15 @@ if st.button("Transcrever"):
         try:
             with st.spinner("Processando... aguarde."):
                 # Download
-                ydl_opts = {'format': 'm4a/bestaudio', 'outtmpl': 'audio.m4a', 'overwrites': True}
-                with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-                    ydl.download([url])
+               ydl_opts = {
+    'format': 'm4a/bestaudio',
+    'outtmpl': 'audio.m4a',
+    'overwrites': True,
+    'nocheckcertificate': True,
+    'quiet': True,
+    'no_warnings': True,
+    'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+}
 
                 # Na nuvem tem que ser CPU e INT8 (Regra do servidor gratis)
                 model = WhisperModel("tiny", device="cpu", compute_type="int8")
